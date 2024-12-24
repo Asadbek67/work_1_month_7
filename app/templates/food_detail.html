@@ -1,14 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="card" style="width: 18rem;">
-        <img src="{{ food.image.url }}" class="card-img-top" alt="{{ food.name }}">
+<div class="container mt-4">
+    <div class="card">
         <div class="card-body">
-            <h5 class="card-title">{{ food.name }}</h5>
-            <p class="card-text">{{ food.description }}</p>
-            <p class="card-text">{{ food.price }} so'm</p>
-            <a href="{% url 'edit_food' food.id %}" class="btn btn-primary">Edit</a> <!-- Edit tugmasi -->
-            <a href="{% url 'all_foods' %}" class="btn btn-secondary">Back to all foods</a> <!-- Barcha taomlar ro'yxatiga qaytish -->
+            <h2>{{ food.name }}</h2>
+            {% if food.image %}
+                <img src="{{ food.image.url }}" alt="{{ food.name }}" class="img-fluid mb-3" style="max-width: 300px;">
+            {% endif %}
+            <p>{{ food.description }}</p>
+            <p>Narxi: {{ food.price }} so'm</p>
+            <p>Kategoriya: {{ food.category.name }}</p>
+            
+            <div class="mt-3">
+                <a href="{% url 'edit_food' food.id %}" class="btn btn-primary">Tahrirlash</a>
+                <a href="{% url 'delete_food' food.id %}" class="btn btn-danger">O'chirish</a>
+                <a href="{% url 'all_foods' %}" class="btn btn-secondary">Orqaga</a>
+            </div>
         </div>
     </div>
+</div>
 {% endblock %}

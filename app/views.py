@@ -3,6 +3,7 @@ from .models import Category, Food
 from .forms import FoodForm
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     foods = Food.objects.all()[:5]
@@ -52,3 +53,11 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
+
+@login_required(login_url='login')
+def delete_food(request, food_id):
+    food = get_object_or_404(Food, id=food_id)
+    if request.method == 'POST':
+        food.delete()
+        return redirect('all_foods')
+    return render(request, 'delete_food.html', {'food': food})

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title">Taomni o'chirish</h3>
+            <p>Siz rostdan ham "{{ food.name }}" taomini o'chirmoqchimisiz?</p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Ha, o'chirish</button>
+                <a href="{% url 'all_foods' %}" class="btn btn-secondary">Bekor qilish</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %} 

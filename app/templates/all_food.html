@@ -1,20 +1,31 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Barcha Taomlar</h1>
+<div class="container mt-4">
+    <h2>Barcha Taomlar</h2>
     <div class="row">
         {% for food in foods %}
-            <div class="col-md-4">
-                <div class="card" style="width: 18rem;">
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                {% if food.image %}
                     <img src="{{ food.image.url }}" class="card-img-top" alt="{{ food.name }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ food.name }}</h5>
-                        <p class="card-text">{{ food.description }}</p>
-                        <p class="card-text">{{ food.price }} $</p>
-                        <a href="{% url 'edit_food' food.id %}" class="btn btn-primary">Edit</a> <!-- Edit tugmasi -->
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ food.name }}</h5>
+                    <p class="card-text">{{ food.description|truncatewords:20 }}</p>
+                    <p class="card-text">Narxi: {{ food.price }} so'm</p>
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'food_detail' food.id %}" class="btn btn-primary">Batafsil</a>
+                        <a href="{% url 'edit_food' food.id %}" class="btn btn-warning">Tahrirlash</a>
+                        <a href="{% url 'delete_food' food.id %}" class="btn btn-danger">O'chirish</a>
                     </div>
                 </div>
             </div>
+        </div>
         {% endfor %}
     </div>
+    <div class="mt-3">
+        <a href="{% url 'add_food' %}" class="btn btn-success">Yangi Taom Qo'shish</a>
+    </div>
+</div>
 {% endblock %}
